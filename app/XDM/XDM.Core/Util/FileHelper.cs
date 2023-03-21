@@ -92,7 +92,7 @@ namespace XDM.Core.Util
         {
             if (referer.EndsWith(".html"))
             {
-                referer = referer.TrimEnd('.');
+                referer = referer.Substring(0, referer.Length-".html".Length);
             }
 
             Uri uri = new Uri(referer);

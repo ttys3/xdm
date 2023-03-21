@@ -181,7 +181,7 @@ namespace XDM.Core.UI
                     ContentLength = contentLength
                 },
                 FileHelper.SanitizeFileName(window.SelectedFileName),
-                window.SelectedFileName != fileName ? FileNameFetchMode.FromHttpReferer : FileNameFetchMode.FileNameAndExtension,
+                window.SelectedFileName != fileName ? FileNameFetchMode.None : FileNameFetchMode.FromHttpReferer,
                 selectedFolder,
                 startImmediately,
                 window.Authentication, window.Proxy ?? Config.Instance.Proxy, queueId, false);
