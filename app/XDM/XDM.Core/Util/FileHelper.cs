@@ -86,7 +86,9 @@ namespace XDM.Core.Util
         }
 
         private static string[] allowedRefererExtensions = { "rar", "zip", "7z", "tar.gz", "tgz" };
-        public static bool GetFilenameFromRefererURL(string referer, string contentType, out string nameWithExt)
+        
+        private static string[] allowedRefererSites = { "rosefile.net" };
+        public static bool GetFilenameFromRefererURL(string referer, string fallback, out string nameWithExt)
         {
             if (referer.EndsWith(".html"))
             {
@@ -94,15 +96,17 @@ namespace XDM.Core.Util
             }
 
             Uri uri = new Uri(referer);
+            string hostname = uri.Host;
             string filename = Path.GetFileName(uri.LocalPath);
             string ext = Path.GetExtension(uri.LocalPath).ToLower();
-
-            nameWithExt = SanitizeFileName(filename);
-            if (allowedRefererExtensions.Contains(ext))
+            
+            if (allowedRefererExtensions.Contains(ext) && allowedRefererSites.Contains(hostname))
             {
+                nameWithExt = SanitizeFileName(filename);
                 return true;
             }
 
+            nameWithExt = fallback;
             return false;
         }
 
