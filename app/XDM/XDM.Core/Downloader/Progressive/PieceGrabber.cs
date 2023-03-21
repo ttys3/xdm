@@ -202,7 +202,7 @@ namespace XDM.Core.Downloader.Progressive
                 }
                 maxByteRange = contentLength <= 0 ? -1 : piece.Offset + contentLength;
                 actualHttpResponseSize = maxByteRange;
-                this.callback?.PieceConnected(this.pieceId, firstRequest ? CreateProbeResult(response!) : null);
+                this.callback?.PieceConnected(this.pieceId, firstRequest ? CreateProbeResult(response!, request.Session.Referer) : null);
                 error = false;
                 return response!;
             }
@@ -433,7 +433,7 @@ namespace XDM.Core.Downloader.Progressive
         //    }
         //}
 
-        private ProbeResult CreateProbeResult(HttpResponse response)
+        private ProbeResult CreateProbeResult(HttpResponse response, String referfer)
         {
             return new ProbeResult
             {
@@ -441,6 +441,7 @@ namespace XDM.Core.Downloader.Progressive
                 Resumable = response.Compressed ? false : response.StatusCode == HttpStatusCode.PartialContent,
                 FinalUri = redirectUri ?? response.ResponseUri,
                 AttachmentName = response.ContentDispositionFileName,
+                Referer = referfer,
                 ContentType = response.ContentType,
                 LastModified = response.LastModified
             };

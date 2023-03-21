@@ -9,6 +9,7 @@ namespace XDM.Core.Downloader
     {
         None, //use given name only
         FileNameAndExtension, //
-        ExtensionOnly
+        ExtensionOnly,
+        FromHttpReferer
     }
 }

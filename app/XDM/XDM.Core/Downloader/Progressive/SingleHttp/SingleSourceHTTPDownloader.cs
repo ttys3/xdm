@@ -267,6 +267,13 @@ namespace XDM.Core.Downloader.Progressive.SingleHttp
                                 this.TargetFileName = name;
                             }
                             break;
+                        case FileNameFetchMode.FromHttpReferer:
+                            var refname = string.Empty;
+                            if (FileHelper.GetFilenameFromRefererURL(result.Referer, result.ContentType, out refname))
+                            {
+                                this.TargetFileName = refname;
+                            }
+                            break;
                     }
 
                     state.Url = result.FinalUri;

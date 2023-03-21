@@ -20,6 +20,8 @@ namespace XDM.Core.Clients.Http
 
         public string? ContentDispositionFileName { get; }
 
+        public string? Referer { get; }
+
         public long ContentLength { get; }
 
         public DateTime LastModified { get; }

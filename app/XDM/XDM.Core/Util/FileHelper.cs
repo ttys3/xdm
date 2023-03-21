@@ -85,6 +85,27 @@ namespace XDM.Core.Util
             }
         }
 
+        private static string[] allowedRefererExtensions = { "rar", "zip", "7z", "tar.gz", "tgz" };
+        public static bool GetFilenameFromRefererURL(string referer, string contentType, out string nameWithExt)
+        {
+            if (referer.EndsWith(".html"))
+            {
+                referer = referer.TrimEnd('.');
+            }
+
+            Uri uri = new Uri(referer);
+            string filename = Path.GetFileName(uri.LocalPath);
+            string ext = Path.GetExtension(uri.LocalPath).ToLower();
+
+            nameWithExt = SanitizeFileName(filename);
+            if (allowedRefererExtensions.Contains(ext))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public static string GetFileName(Uri uri, string contentType = null)
         {
             var name = Path.GetFileName(uri.LocalPath);

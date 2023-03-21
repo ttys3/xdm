@@ -24,7 +24,9 @@ namespace XDM.Core.Downloader.Progressive
         protected long totalSize;
         protected int MAX_COUNT = Config.Instance.MaxSegments;
         protected CancelFlag cancelFlag = new();
-        protected FileNameFetchMode fileNameFetchMode = FileNameFetchMode.FileNameAndExtension;
+        // protected FileNameFetchMode fileNameFetchMode = FileNameFetchMode.FileNameAndExtension;
+        // FromHttpReferer
+        protected FileNameFetchMode fileNameFetchMode = FileNameFetchMode.FromHttpReferer;
         protected IHttpClient http;
         protected long lastStateSavedAt = Helpers.TickCount();
         protected long lastProgressUpdatedAt = Helpers.TickCount();

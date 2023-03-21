@@ -29,6 +29,8 @@ namespace XDM.Core.Clients.Http
 
         public string? ContentDispositionFileName => GetContentDisposition();
 
+        public string? Referer => Response!.RequestMessage!.Headers.Referrer?.ToString();
+
         public long ContentLength => Response?.Content?.Headers?.ContentLength ?? Response?.Content?.Headers?.ContentRange?.Length ?? -1;
 
         public DateTime LastModified => Response!.Content?.Headers?.LastModified?.Date ?? DateTime.Now;

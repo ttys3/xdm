@@ -24,6 +24,7 @@ namespace XDM.Core.Clients.Http
         private string? transferEncoding;
         private string? contentEncoding;
         private string? contentDispositionFileName;
+        private string? referer;
         private DateTime lastModified = DateTime.Now;
         private long rangeStart = -1, rangeEnd = -1;
         private Dictionary<string, List<string>>? headers = null;
@@ -96,6 +97,8 @@ namespace XDM.Core.Clients.Http
              || Utils.IsCompressed(contentEncoding);
 
         public string? ContentDispositionFileName => this.contentDispositionFileName;
+
+        public string? Referer => null;
 
         public long ContentLength => this.contentLength;
 
@@ -219,6 +222,9 @@ namespace XDM.Core.Clients.Http
                             break;
                         case "content-disposition":
                             this.contentDispositionFileName = WebRequestExtensions.GetContentDispositionFileName(value);
+                            break;
+                        case "referer":
+                            this.referer = value;
                             break;
                         default:
                             break;

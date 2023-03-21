@@ -21,6 +21,9 @@ namespace XDM.Core.Clients.Http
 
         public string? ContentDispositionFileName => Response!.GetContentDispositionFileName();
 
+        // TODO verify this work or not?
+        public string? Referer => Request!.Headers.Get("Referer");
+
         public long ContentLength => Response!.GetContentLength();
 
         public DateTime LastModified => Response!.LastModified;
