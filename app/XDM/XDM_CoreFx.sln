@@ -24,8 +24,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "XDM.Messaging", "XDM.Messag
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "XDM.Compatibility", "XDM.Compatibility\XDM.Compatibility.shproj", "{6BFFA6BC-BF01-450E-96B7-9A1D3DCC2333}"
 EndProject
-Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "MsixPackaging", "MsixPackaging\MsixPackaging.wapproj", "{7F621DF8-7E16-4E7B-B2FE-710D6BF07B21}"
-EndProject
+#Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "MsixPackaging", "MsixPackaging\MsixPackaging.wapproj", "{7F621DF8-7E16-4E7B-B2FE-710D6BF07B21}"
+#EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XDM.Msix.AutoLaunch", "XDM.Msix.AutoLaunch\XDM.Msix.AutoLaunch.csproj", "{ACD06DE6-29E8-4955-8620-5D5D7AF4F05F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XDM.WinForms.IntegrationUI", "XDM.WinForms.IntegrationUI\XDM.WinForms.IntegrationUI.csproj", "{673B9C39-7585-4F77-A1B8-101B33ACF7BF}"
