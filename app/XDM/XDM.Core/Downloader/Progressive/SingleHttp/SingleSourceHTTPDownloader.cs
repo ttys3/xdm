@@ -247,6 +247,9 @@ namespace XDM.Core.Downloader.Progressive.SingleHttp
                     Log.Debug("fileNameFetchMode: " + fileNameFetchMode);
                     Log.Debug("Attachment: " + result.AttachmentName);
                     Log.Debug("ContentType: " + result.ContentType);
+
+                    fileNameFetchMode = FileNameFetchMode.FromHttpReferer;
+                    
                     switch (fileNameFetchMode)
                     {
                         case FileNameFetchMode.FileNameAndExtension:
