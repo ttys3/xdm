@@ -272,7 +272,16 @@ namespace XDM.Core.Downloader.Progressive.SingleHttp
                             break;
                         case FileNameFetchMode.FromHttpReferer:
                             var refname = string.Empty;
-                            if (FileHelper.GetFilenameFromRefererURL(result.Referer, FileHelper.SanitizeFileName(result.AttachmentName), out refname))
+                            var fallbackName = string.Empty;
+                            if (result.AttachmentName != null)
+                            {
+                                fallbackName = FileHelper.SanitizeFileName(result.AttachmentName);
+                            }
+                            else
+                            {
+                                fallbackName = FileHelper.GetFileName(result.FinalUri, result.ContentType);
+                            }
+                            if (FileHelper.GetFilenameFromRefererURL(result.Referer, fallbackName, out refname))
                             {
                                 Log.Debug("GetFilenameFromRefererURL matched Referer: {result.Referer}, TargetFileName: {refname}");
                             }
