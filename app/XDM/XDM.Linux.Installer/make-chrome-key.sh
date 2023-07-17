@@ -12,4 +12,4 @@ openssl rsa -in key.pem -pubout -outform DER | openssl base64 -A > pubkey.pem
 
 echo "Extension ID:"
 
-openssl rsa -in key.pem -pubout -outform DER | shasum -a 256 | head -c32 | tr 0-9a-f a-p
+openssl rsa -in key.pem -pubout -outform DER | sha256sum | head -c32 | tr 0-9a-f a-p
