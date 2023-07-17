@@ -6,7 +6,9 @@ OUT_DIR=./binary-source
 
 set -eou pipefail
 
-if -z $CRX_KEY_FILE; then
+CRX_KEY_FILE=${CRX_KEY_FILE:-}
+
+if [ -z "$CRX_KEY_FILE" ]; then
     echo "you must set CRX_KEY_FILE point to chrome private key file path"
     exit 1
 fi
