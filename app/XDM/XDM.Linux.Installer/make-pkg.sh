@@ -6,6 +6,11 @@ OUT_DIR=./binary-source
 
 set -eou pipefail
 
+if -z $CRX_KEY_FILE; then
+    echo "you must set CRX_KEY_FILE point to chrome private key file path"
+    exit 1
+fi
+
 echo "removing ./${OUT_DIR}"
 rm -rf ./${OUT_DIR}
 
@@ -15,7 +20,9 @@ dotnet publish -c Release -f net6.0 -r linux-x64 --self-contained ../XDM.Gtk.UI/
 
 echo "packing chrome extension ..."
 
-/usr/bin/microsoft-edge-stable --pack-extension=$(pwd)/${OUT_DIR}/chrome-extension
+# https://developer.chrome.com/docs/extensions/mv3/linux_hosting/#package-through-command-line
+# https://developer.chrome.com/docs/extensions/mv3/manifest/key/#keep-consistent-id
+/usr/bin/microsoft-edge-stable --pack-extension=$(pwd)/${OUT_DIR}/chrome-extension --pack-extension-key $CRX_KEY_FILE
 
 echo "packing chrome extension done"
 
