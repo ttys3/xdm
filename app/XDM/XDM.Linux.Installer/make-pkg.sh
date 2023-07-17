@@ -24,7 +24,7 @@ echo "packing chrome extension ..."
 
 # https://developer.chrome.com/docs/extensions/mv3/linux_hosting/#package-through-command-line
 # https://developer.chrome.com/docs/extensions/mv3/manifest/key/#keep-consistent-id
-/usr/bin/microsoft-edge-stable --pack-extension=$(pwd)/${OUT_DIR}/chrome-extension --pack-extension-key $CRX_KEY_FILE
+/usr/bin/microsoft-edge-stable --pack-extension=$(pwd)/${OUT_DIR}/chrome-extension --pack-extension-key=$CRX_KEY_FILE
 
 echo "packing chrome extension done"
 
