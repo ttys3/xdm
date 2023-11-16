@@ -87,7 +87,7 @@ namespace XDM.Core.Util
 
         private static string[] allowedRefererExtensions = { ".rar", ".zip", ".7z", ".tar.gz", ".tgz" };
         
-        private static string[] allowedRefererSites = { "rosefile.net" };
+        private static string[] allowedRefererSites = { "rosefile.net", "rsfile.cc", "rsfile.org" };
         public static bool GetFilenameFromRefererURL(string referer, string fallback, out string nameWithExt)
         {
             if (referer.EndsWith(".html"))
