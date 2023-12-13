@@ -108,6 +108,7 @@ namespace XDM.Core.MediaParser.Hls
                     var encAttrs = HlsHelper.ParseAttributes(line.Substring(EXT_X_KEY.Length));
                     if (encAttrs.ContainsKey("METHOD"))
                     {
+                        // #EXT-X-KEY:METHOD=AES-128,URI="https://example.com/sign.bin"
                         if (encAttrs["METHOD"] == "AES-128" && encAttrs.GetValueOrDefault("KEYFORMAT", "identity") == "identity")
                         {
                             isEncrypted = true;
