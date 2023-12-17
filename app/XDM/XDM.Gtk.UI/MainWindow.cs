@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gtk;
+using Gdk;
 using Application = Gtk.Application;
 using IoPath = System.IO.Path;
 using XDM.Core;
@@ -12,10 +13,11 @@ using MenuItem = Gtk.MenuItem;
 using XDM.GtkUI.Utils;
 using XDM.GtkUI.Dialogs.DeleteConfirm;
 using XDM.GtkUI.Dialogs.Language;
+using TraceLog;
 
 namespace XDM.GtkUI
 {
-    public class MainWindow : Window, IApplicationWindow
+    public class MainWindow : Gtk.Window, IApplicationWindow
     {
         private TreeStore categoryTreeStore;
         private TreeView categoryTree;
@@ -107,6 +109,7 @@ namespace XDM.GtkUI
 
         public MainWindow() : base("Xtreme Download Manager")
         {
+            Log.Debug("MainWindow init");
             SetDefaultIconFromFile(IoPath.Combine(AppDomain.CurrentDomain.BaseDirectory, "xdm-logo-512.png"));
             SetPosition(WindowPosition.CenterAlways);
             DeleteEvent += AppWin1_DeleteEvent;
@@ -130,7 +133,10 @@ namespace XDM.GtkUI
             clipboarMonitor.ClipboardChanged += (_, _) => this.ClipboardChanged?.Invoke(this, EventArgs.Empty);
 
             statusIcon = new StatusIcon(GtkHelper.LoadSvg("xdm-logo", 128));
+            statusIcon.Visible = true;
             statusIcon.Activate += StatusIcon_Activate;
+            Log.Debug("statusIcon init done");
+            Log.Debug("MainWindow init done");
         }
 
         private void StatusIcon_Activate(object? sender, EventArgs e)
@@ -921,8 +927,13 @@ namespace XDM.GtkUI
 
         private void AppWin1_DeleteEvent(object o, DeleteEventArgs args)
         {
+            // cancel close
             args.RetVal = true;
-            this.Hide();
+            Log.Debug("AppWin1_DeleteEvent Hide");
+            // this.Hide();
+            // minimize window instead of hiding due to StatusIcon bug
+            // once hide, we can't show it again
+            this.Iconify();
         }
 
         private static Gdk.Pixbuf LoadSvg(string name, int dimension = 16)
@@ -1057,7 +1068,7 @@ namespace XDM.GtkUI
 
         public bool Confirm(object? window, string text)
         {
-            if (window is not Window owner)
+            if (window is not Gtk.Window owner)
             {
                 owner = this;
             }
@@ -1316,9 +1327,13 @@ namespace XDM.GtkUI
         {
             if (!this.Visible)
             {
+                Log.Debug("statusIcon Show");
                 this.Show();
+                this.Present();
+            } else {
+                Log.Debug("statusIcon Hide");
+                this.Hide();
             }
-            this.Present();
         }
     }
 }
