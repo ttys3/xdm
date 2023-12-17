@@ -55,6 +55,11 @@ tar --create --file "${SOURCE_NAME}.tar.gz" "${SOURCE_NAME}"
 mv "${SOURCE_NAME}.tar.gz" "rpmbuild/SOURCES"
 
 cat <<EOF > "rpmbuild/SPECS/xdman_gtk.spec"
+#  If true, set the SOURCE_DATE_EPOCH environment variable
+#  to the timestamp of the topmost changelog entry
+#  set to 0 to avoid "source_date_epoch_from_changelog set but %changelog is missing" error
+%define source_date_epoch_from_changelog 0
+
 Name:       	xdman_gtk
 Version:    	${VERSION}
 Release:    	1%{?dist}
