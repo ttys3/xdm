@@ -365,8 +365,12 @@ namespace XDM.Core.Util
                         Directory.CreateDirectory(autoStartDir);
                     }
                     var desktopFile = Path.Combine(autoStartDir, "xdm-app.desktop");
-                    File.WriteAllText(desktopFile, GetLinuxDesktopFile());
-                    SetExecutable(desktopFile);
+                    if (enable) {
+                        File.WriteAllText(desktopFile, GetLinuxDesktopFile());
+                        SetExecutable(desktopFile);
+                    } else if (File.Exists(desktopFile)) {
+                        File.Delete(desktopFile);
+                    }
                     return true;
                 }
 #endif
@@ -402,6 +406,7 @@ namespace XDM.Core.Util
                 "Name=Xtreme Download Manager\r\n" +
                 "Comment=Xtreme Download Manager\r\n" +
                 "Categories=Network;\r\n" +
+                "Keywords=Xtreme;Download;Manager;xdm;\r\n" +
                 $"Icon={iconPath}";
         }
 
