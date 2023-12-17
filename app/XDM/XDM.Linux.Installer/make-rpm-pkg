@@ -29,6 +29,7 @@ Type=Application
 Terminal=false
 Name=Xtreme Download Manager
 Comment=Xtreme Download Manager
+Keywords=xdm;xdman;Xtreme;Download;Manager;
 Categories=Network;
 Icon=/opt/xdman/xdm-logo.svg
 MimeType=application/xdm-app;x-scheme-handler/xdm-app;

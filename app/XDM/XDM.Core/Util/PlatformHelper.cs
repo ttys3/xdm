@@ -406,7 +406,7 @@ namespace XDM.Core.Util
                 "Name=Xtreme Download Manager\r\n" +
                 "Comment=Xtreme Download Manager\r\n" +
                 "Categories=Network;\r\n" +
-                "Keywords=Xtreme;Download;Manager;xdm;\r\n" +
+                "Keywords=xdm;xdman;Xtreme;Download;Manager;\r\n" +
                 $"Icon={iconPath}";
         }
 
