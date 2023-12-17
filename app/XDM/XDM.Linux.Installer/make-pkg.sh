@@ -6,6 +6,7 @@ OUT_DIR=./binary-source
 
 set -eou pipefail
 
+# Input value for private key must be a valid format (PKCS#8-format PEM-encoded RSA key).
 CRX_KEY_FILE=${CRX_KEY_FILE:-}
 
 if [ -z "$CRX_KEY_FILE" ]; then
