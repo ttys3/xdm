@@ -2,19 +2,11 @@
 (function () {
     console.log("Injected...");
 
-    // batch download 115 files
-    // Select the div with the attribute rel="base_content"
-    let baseContentDiv = document.querySelector('div[rel="base_content"]');
-
-    // Check if the div was found
-    if (baseContentDiv) {
-        // Select all a elements that are descendants of li elements within ul under the baseContentDiv
+    // Function to process links when the target div is found
+    function processLinks(baseContentDiv) {
+        let hrefs = [];
         let links = baseContentDiv.querySelectorAll('ul > li > a');
 
-        // Create an array to store the href values
-        let hrefs = [];
-
-        // Iterate over the NodeList and push each href value into the array
         links.forEach(link => {
             let href = link.getAttribute('href');
             if (href && href.indexOf("http") === 0) {
@@ -22,16 +14,34 @@
             }
         });
 
-        // Optional: Log the array of href values to verify the result
-        console.log(hrefs);
-    } else {
-        console.error('The div with rel="base_content" was not found.');
+        console.log("Found links:", hrefs);
+        
+        chrome.runtime.sendMessage({
+            type: "links",
+            links: hrefs,
+            pageUrl: document.location.href
+        });
     }
 
-    console.log(hrefs);
-    chrome.runtime.sendMessage({
-        type: "links",
-        links: hrefs,
-        pageUrl: document.location.href
+    // Create a MutationObserver to watch for the div
+    const observer = new MutationObserver((mutations, obs) => {
+        const baseContentDiv = document.querySelector('div[rel="base_content"]');
+        if (baseContentDiv) {
+            console.log("Target div found");
+            obs.disconnect(); // Stop observing once we find the element
+            processLinks(baseContentDiv);
+        }
     });
+
+    // Start observing the document with the configured parameters
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+    // Set a timeout to stop the observer after 30 seconds to prevent infinite observation
+    setTimeout(() => {
+        observer.disconnect();
+        console.log("Observer timed out after 30 seconds");
+    }, 30000);
 })();
