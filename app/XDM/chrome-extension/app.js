@@ -358,7 +358,7 @@ export default class App {
 
         chrome.contextMenus.create({
             id: 'download-all-links',
-            title: "Download All links with XDM",
+            title: "Download All Videos with XDM",
             contexts: ["all"]
         });
 
