@@ -28,7 +28,7 @@
         const baseContentDiv = document.querySelector('div[rel="base_content"]');
         if (baseContentDiv) {
             console.log("Target div found");
-            obs.disconnect(); // Stop observing once we find the element
+            // obs.disconnect(); // Stop observing once we find the element
             processLinks(baseContentDiv);
         }
     });
@@ -42,6 +42,6 @@
     // Set a timeout to stop the observer after 30 seconds to prevent infinite observation
     setTimeout(() => {
         observer.disconnect();
-        console.log("Observer timed out after 30 seconds");
-    }, 30000);
+        console.log("Observer timed out after 3600 seconds");
+    }, 3600000);
 })();
