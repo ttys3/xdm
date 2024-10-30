@@ -16,11 +16,13 @@
 
         console.log("Found links:", hrefs);
         
-        chrome.runtime.sendMessage({
-            type: "links",
-            links: hrefs,
-            pageUrl: document.location.href
-        });
+        if (hrefs.length > 0) {
+            chrome.runtime.sendMessage({
+                type: "links",
+                links: hrefs,
+                pageUrl: document.location.href
+            });
+        }
     }
 
     // Create a MutationObserver to watch for the div
