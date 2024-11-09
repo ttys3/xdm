@@ -112,7 +112,23 @@ namespace XDM.Core.Clients.Http
                 {
                     // https://github.com/dotnet/runtime/issues/32765#issuecomment-766768351
                     // response.Content.Headers.ContentDisposition.FileName contains quotes #32765
-                    return FileHelper.SanitizeFileName(headerValue.FileName.Trim(QuoteChars));
+                    var fileName = headerValue.FileName.Trim(QuoteChars);
+                    // Try to decode filename if it contains non-ASCII characters
+                    // for example:
+                    // content-disposition: attachment; filename="八月.zip"
+                    // in dotnet we will get fileName like: `attachment; filename="åxxx«æxxx.zip"`
+                    try 
+                    {
+                        byte[] bytes = Encoding.GetEncoding("ISO-8859-1").GetBytes(fileName);
+                        fileName = Encoding.UTF8.GetString(bytes);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Debug($"Failed to decode filename: {ex.Message}");
+                        // Keep original filename if decode fails
+                    }
+
+                    return FileHelper.SanitizeFileName(fileName);
                 }
             }
             catch (FormatException ex)
