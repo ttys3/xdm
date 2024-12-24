@@ -325,6 +325,10 @@ export default class App {
         chrome.scripting.executeScript({
             target: { tabId: tab.id, allFrames: true },
             files: [image === true ? "get-images.js" : "get-links.js"],
+            // https://developer.chrome.com/docs/extensions/reference/api/scripting
+            // default is ISOLATED, if we use MAIN, 
+            //we lost the permission to access chrome.runtime.sendMessage
+            // world: "ISOLATED",
         }).then(() => this.logger.log("script injected in all frames"));
     }
 
